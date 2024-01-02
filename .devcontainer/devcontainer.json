@@ -1,0 +1,31 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "${localWorkspaceFolder}",
+    "args": {
+      "USERNAME": "${localEnv:USERNAME}",
+      "WORKSPACE": "${containerWorkspaceFolder}"
+    }
+  },
+  "runArgs": ["--network=host"],
+  "containerEnv": {
+    "SHELL": "${localEnv:SHELL}"
+  },
+  "mounts": [
+    "type=volume,source=${localWorkspaceFolderBasename}-home,target=${localEnv:HOME}"
+  ],
+  "workspaceFolder": "${localEnv:HOME}/simple_bazel_end_to_end",
+  "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=${localEnv:HOME}/simple_bazel_end_to_end",
+  "remoteUser": "${localEnv:USER}",
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "BazelBuild.vscode-bazel",
+        "jkiviluoto.tws",
+        "llvm-vs-code-extensions.vscode-clangd"
+      ]
+    }
+  }
+}

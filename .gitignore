@@ -1,0 +1,13 @@
+# Build and Output Artifact Folders
+.cache/
+bazel-*
+external
+
+# Ignore the MODULE file(s) until I know how to utilize them
+MODULE.*
+
+# Auto-generarted files
+compile_commands.json
+
+# User specific files
+user.bazelrc

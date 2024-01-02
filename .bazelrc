@@ -1,0 +1,9 @@
+# Build all code with C++17
+build --cxxopt=-std=c++17
+
+# Load any settings specific to the current user.
+# user.bazelrc should appear in .gitignore so that settings are not shared with
+# team members. This needs to be last statement in this config,
+# as the user configuration should be able to overwrite flags from this file.
+# See https://docs.bazel.build/versions/master/best-practices.html#bazelrc
+try-import %workspace%/user.bazelrc

@@ -1,4 +1,6 @@
 {
+    "bazel.buildifierFixOnFormat": true,
+    "bazel.enableCodeLens": true,
     "C_Cpp.autoAddFileAssociations": false,
     "C_Cpp.doxygen.generateOnType": false,
     "C_Cpp.intelliSenseEngine": "disabled",

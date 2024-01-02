@@ -19,12 +19,16 @@
   "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=${localEnv:HOME}/simple_bazel_end_to_end",
   "remoteUser": "${localEnv:USER}",
   "updateRemoteUserUID": true,
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": "latest"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         "BazelBuild.vscode-bazel",
         "jkiviluoto.tws",
-        "llvm-vs-code-extensions.vscode-clangd"
+        "llvm-vs-code-extensions.vscode-clangd",
+        "StackBuild.bazel-stack-vscode"
       ]
     }
   }

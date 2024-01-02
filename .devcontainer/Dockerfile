@@ -16,6 +16,11 @@ RUN wget -q https://github.com/bazelbuild/bazelisk/releases/download/v1.17.0/baz
   && chmod +x buildifier-linux-amd64 \
   && mv buildifier-linux-amd64 /usr/local/bin/buildifier
 
+ARG DOCKER_VERSION=24.0.7
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN wget -q "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz" -O - \
+  | tar -xzC - -C /usr/local/bin --strip=1 docker/docker
+
 # Create development user
 ARG USERNAME
 ARG USER_UID=1000

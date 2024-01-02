@@ -1,12 +1,34 @@
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
 load("@rules_cc//cc:defs.bzl", "cc_binary")
-# repository//pkg:extensions -> rule/symbol
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 
 cc_binary(
     name = "main",
     srcs = ["main.cpp"],
+    visibility = ["//visibility:public"],
     deps = [
-        "//cc/my_lib:my_lib",
+        "//cc/my_lib",
         "@boost//:program_options",
     ],
-    visibility = ["//visibility:public"],
+)
+pkg_tar(
+    name = "image-main-layer",
+    srcs =[":main"],
+)
+
+oci_image(
+    name = "image",
+    base = "@ubuntu_22_04",
+    entrypoint = [],
+    cmd = ["/main", "--value", "24"],
+    tars = [
+        ":image-main-layer",
+    ],
+)
+
+oci_tarball(
+    name = "tarball",
+    image = ":image",
+    repo_tags = ["cc:main-test"],
 )

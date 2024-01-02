@@ -15,6 +15,38 @@ load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 
 boost_deps()
 
+# Docker build rules
+# https://docs.aspect.build/guides/rules_oci_migration/
+maybe(
+    http_archive,
+    name = "rules_oci",
+    sha256 = "686f871f9697e08877b85ea6c16c8d48f911bf466c3aeaf108ca0ab2603c7306",
+    strip_prefix = "rules_oci-1.5.1",
+    url = "https://github.com/bazel-contrib/rules_oci/releases/download/v1.5.1/rules_oci-v1.5.1.tar.gz",
+)
+
+load("@rules_oci//oci:dependencies.bzl", "rules_oci_dependencies")
+
+rules_oci_dependencies()
+
+load("@rules_oci//oci:repositories.bzl", "LATEST_CRANE_VERSION", "oci_register_toolchains")
+
+oci_register_toolchains(
+    name = "oci",
+    crane_version = LATEST_CRANE_VERSION,
+)
+
+load("@rules_oci//oci:pull.bzl", "oci_pull")
+
+oci_pull(
+    name = "ubuntu_22_04",
+    digest = "sha256:c88265b8f9e40ca21547aeecd90b688a167738fefda07b943cdf48f7d714d503",
+    image = "public.ecr.aws/lts/ubuntu",
+    platforms = [
+        "linux/amd64",
+    ],
+)
+
 # Add ability to generate compile commands
 maybe(
     http_archive,

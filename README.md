@@ -17,6 +17,13 @@ docker load < bazel-bin/cc/tarball/tarball.tar
 docker run --rm cc:main-test
 ```
 
+## Run Coverage on CC Package
+
+```bash
+bazel coverage --combined_report=lcov //cc/...
+genhtml --branch-coverage --output coverage "$(bazel info output_path)/_coverage/_coverage_report.dat"
+```
+
 ## References
 
 - <https://docs.aspect.build/>

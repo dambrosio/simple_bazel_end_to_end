@@ -12,6 +12,17 @@ cc_binary(
         "@boost//:program_options",
     ],
 )
+
+cc_test(
+    name = "test",
+    size = "small",
+    srcs = ["test.cpp"],
+    deps = [
+        "@googletest//:gtest_main",
+        "//cc/my_lib",
+    ],
+)
+
 pkg_tar(
     name = "image-main-layer",
     srcs =[":main"],

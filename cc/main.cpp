@@ -20,7 +20,9 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
-  print(vm["value"].as<int>());
+  const auto value = vm["value"].as<int>();
+
+  std::cout << value << "*2: " << add(value, value) << std::endl;
 
   return EXIT_SUCCESS;
 }

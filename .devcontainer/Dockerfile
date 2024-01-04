@@ -4,6 +4,7 @@ FROM ubuntu:jammy
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
   build-essential \
   ca-certificates \
+  lcov \
   python3 \
   wget \
   zsh \

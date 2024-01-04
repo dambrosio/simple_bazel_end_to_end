@@ -3,6 +3,9 @@
 bazel-*
 external
 
+coverage/*
+!coverage/.gitkeep
+
 # Ignore the MODULE file(s) until I know how to utilize them
 MODULE.*
 

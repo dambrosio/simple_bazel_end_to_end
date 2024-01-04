@@ -15,6 +15,15 @@ load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 
 boost_deps()
 
+# Google Test
+maybe(
+    http_archive,
+    name = "googletest",
+    sha256 = "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
+    strip_prefix = "googletest-1.14.0",
+    url = "https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz",
+)
+
 # Docker build rules
 # https://docs.aspect.build/guides/rules_oci_migration/
 maybe(

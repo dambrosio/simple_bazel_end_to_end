@@ -1,9 +1,6 @@
 {
     "bazel.buildifierFixOnFormat": true,
     "bazel.enableCodeLens": true,
-    "C_Cpp.autoAddFileAssociations": false,
-    "C_Cpp.doxygen.generateOnType": false,
-    "C_Cpp.intelliSenseEngine": "disabled",
     "clangd.arguments": [
         "--background-index",
         "--compile-commands-dir=${workspaceFolder}",
@@ -12,6 +9,9 @@
         "--pretty",
         "--query-driver=**"
       ],
+    "[cpp]": {
+      "editor.defaultFormatter": "zachflower.uncrustify"
+    },
     "editor.formatOnSave": true,
     "editor.rulers": [100],
     "editor.tabSize": 2,

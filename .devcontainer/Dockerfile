@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
   ca-certificates \
   lcov \
   python3 \
+  uncrustify \
   wget \
   zsh \
   && rm -rf /var/lib/apt/lists/*

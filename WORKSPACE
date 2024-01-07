@@ -3,26 +3,49 @@ workspace(name = "com_github_dambrosio_simple_bazel_end_to_end")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
+# rules_ros2
 maybe(
     http_archive,
-    name = "com_github_nelhage_rules_boost",
-    sha256 = "1ef96e5c4c7c05024e60dc5927f7c1f39c692530d1a396f0968ce1715cd00df4",
-    strip_prefix = "rules_boost-e72eb259976357f6e82f4d74d74a7c12d1c3776d",
-    url = "https://github.com/nelhage/rules_boost/archive/e72eb259976357f6e82f4d74d74a7c12d1c3776d.tar.gz",
+    name = "com_github_mvukov_rules_ros2",
+    sha256 = "ba64804ccf79e1a80762935c24c20c1c8f9c770879c05075dc78669a280cb9bf",
+    strip_prefix = "rules_ros2-8fedbc779b32e762f5f1de0962e1e0ac35cb8c56",
+    url = "https://github.com/mvukov/rules_ros2/archive/8fedbc779b32e762f5f1de0962e1e0ac35cb8c56.tar.gz",
 )
 
-load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
+load("@com_github_mvukov_rules_ros2//repositories:repositories.bzl", "ros2_repositories")
 
-boost_deps()
+ros2_repositories()
 
-# Google Test
-maybe(
-    http_archive,
-    name = "googletest",
-    sha256 = "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
-    strip_prefix = "googletest-1.14.0",
-    url = "https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz",
+load("@com_github_mvukov_rules_ros2//repositories:deps.bzl", "ros2_deps")
+
+ros2_deps()
+
+load("@rules_python//python:repositories.bzl", "py_repositories", "python_register_toolchains")
+
+py_repositories()
+
+python_register_toolchains(
+    name = "rules_ros2_python",
+    python_version = "3.10",
 )
+
+load("@com_github_mvukov_rules_ros2//repositories:pip_annotations.bzl", "PIP_ANNOTATIONS")
+load("@rules_python//python:pip.bzl", "pip_parse")
+load("@rules_ros2_python//:defs.bzl", python_interpreter_target = "interpreter")
+
+pip_parse(
+    name = "rules_ros2_pip_deps",
+    annotations = PIP_ANNOTATIONS,
+    python_interpreter_target = python_interpreter_target,
+    requirements_lock = "@com_github_mvukov_rules_ros2//:requirements_lock.txt",
+)
+
+load(
+    "@rules_ros2_pip_deps//:requirements.bzl",
+    install_rules_ros2_pip_deps = "install_deps",
+)
+
+install_rules_ros2_pip_deps()
 
 # Docker build rules
 # https://docs.aspect.build/guides/rules_oci_migration/

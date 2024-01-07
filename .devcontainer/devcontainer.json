@@ -28,7 +28,8 @@
         "BazelBuild.vscode-bazel",
         "jkiviluoto.tws",
         "llvm-vs-code-extensions.vscode-clangd",
-        "StackBuild.bazel-stack-vscode"
+        "StackBuild.bazel-stack-vscode",
+        "zachflower.uncrustify"
       ]
     }
   }
